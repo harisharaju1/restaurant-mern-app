@@ -1,0 +1,15 @@
+.signup-container{
+    background-image: url('1913581.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0.7;
+}
+
+.signin-container{
+    background-image: url('wp3176523.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0.7;
+}
