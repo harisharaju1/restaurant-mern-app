@@ -6,9 +6,7 @@ export const createItem = async (formData) => {
             'Content-Type':'application/json'
         }
     }
-
-    console.log(formData);
-    const response = await axios.post('/api/item', formData,config);
-    console.log('got here!')
+    
+    const response = await axios.post('/api/item/create', formData,config);    
     return response;
 }

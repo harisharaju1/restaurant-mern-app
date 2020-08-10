@@ -33,8 +33,7 @@ const AdminDashboard = () => {
         } else {
             const data = {item};        
         
-            setLoading(true);
-            console.log(data);
+            setLoading(true);            
             createItem(data)
             .then(response => {
                 setLoading(false);
@@ -43,10 +42,10 @@ const AdminDashboard = () => {
             })
             .catch(err => {
                 setLoading(false);
-                setErrorMsg(err.response.data.errorMessage)
+                setErrorMsg(err.response.data.errorMessage);
             });
 
-            setSuccessMsg('Added successfully')
+            //setSuccessMsg('Added successfully');
         }
     }
     /**********************************
