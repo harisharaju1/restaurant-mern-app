@@ -13,7 +13,7 @@ const Header = ({history}) => {
     //views
     const showNavigation = () => {        
         return (
-        <nav className="navbar navbar-expand-lg navbar-light bg-light">
+        <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
             <Link to='/' className='navbar-brand'>
                 DiamondLane
             </Link>
