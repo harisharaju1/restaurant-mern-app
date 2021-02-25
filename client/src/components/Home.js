@@ -1,12 +1,12 @@
 import React, { Fragment } from 'react';
-import female from './female.jpg';
-import rings from './rings.jpg';
-import ring from './ring.jpg';
-import pendants from './pendants.jpg'
-import studs from './studs.jpg'
-import coupleRings from './couple-rings.jpg';
-import bangles from './bangles_new.jpg'
-import watch from './watch.jpg'
+import female from './images/female.jpg';
+import rings from './images/rings.jpg';
+import ring from './images/ring.jpg';
+import pendants from './images/pendants.jpg'
+import studs from './images/studs.jpg'
+import coupleRings from './images/couple-rings.jpg';
+import bangles from './images/bangles_new.jpg'
+import watch from './images/watch.jpg'
 
 const Home = () => {
     return(
@@ -60,9 +60,9 @@ const Home = () => {
                 </div>
             </div>
         </section>
-        <section className='services py-5 text-center'>
+        <section className='services py-5 text-center bg-dark'>
             <div className='container'>
-                <div className='row'>
+                <div className='row' id='infosection'>
                     {/* single service */}
                     <div className='col-10 mx-auto col-md-6 col-lg-4 my-3'>
                         <span className='service-icon'>
@@ -231,8 +231,7 @@ const Home = () => {
                     {/* <!--Column1--> */}
                     <div className="footer-pad">
                     <h5>Know Your Jewellery</h5>
-                    <ul className="list-unstyled">
-                        <li><a href='/'></a></li>
+                    <ul className="list-unstyled">                        
                         <li><a href='/'>DIAMOND GUIDE</a></li>
                         <li><a href='/'>JEWELLERY GUIDE</a></li>
                         <li><a href='/'>GEMSTONES GUIDE</a></li>
@@ -257,9 +256,6 @@ const Home = () => {
                     <ul className="list-unstyled">
                         <li><a href='/'>RETURN POLICY</a></li>
                         <li><a href='/'>ORDER STATUS</a></li>
-                        <li>
-                        <a href='/'></a>
-                        </li>
                     </ul>
                     </div>
                 </div>

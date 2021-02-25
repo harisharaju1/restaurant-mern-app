@@ -13,8 +13,8 @@ const Header = ({history}) => {
     //views
     const showNavigation = () => {        
         return (
-        <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-            <Link to='/' className='navbar-brand'>
+        <nav className="navbar navbar-expand-lg" id='products'>
+            <Link to='/' className='navbar-brand' id='infosection'>
                 DiamondLane
             </Link>
             <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -26,13 +26,13 @@ const Header = ({history}) => {
                     {!isAuthenticated() && (
                         <Fragment>
                            <li className="nav-item">
-                                <Link to='/' className="nav-link"><i className="fas fa-home"></i> Home</Link>
+                                <Link to='/' className="nav-link" id='infosection'><i className="fas fa-home" id='infosection'></i> Home</Link>
                             </li>  
                             <li className="nav-item">
-                                <Link to='/signup' className="nav-link"><i className='fas fa-edit'></i> SignUp</Link>
+                                <Link to='/signup' className="nav-link" id='infosection'><i className='fas fa-edit' id='infosection'></i> SignUp</Link>
                             </li>
                             <li className="nav-item">
-                                <Link to='/signin' className="nav-link"><i className='fas fa-sign-in-alt'></i> SignIn</Link>
+                                <Link to='/signin' className="nav-link" id='infosection'><i className='fas fa-sign-in-alt' id='infosection'></i> SignIn</Link>
                             </li>   
                         </Fragment>
                     )}
@@ -40,7 +40,7 @@ const Header = ({history}) => {
                     {isAuthenticated() && isAuthenticated().role === 0 && (
                         <Fragment>
                            <li className="nav-item">
-                                <Link to='/user/dashboard' className="nav-link"><i className='fas fa-home'></i> Dashboard</Link>
+                                <Link to='/user/dashboard' className="nav-link" id='infosection'><i className='fas fa-home' id='infosection'></i> Dashboard</Link>
                             </li>                 
                         </Fragment>
                     )}
@@ -48,7 +48,7 @@ const Header = ({history}) => {
                     {isAuthenticated() && isAuthenticated().role === 1 && (
                         <Fragment>
                            <li className="nav-item">
-                                <Link to='/admin/dashboard' className="nav-link"><i className='fas fa-home'></i>  Dashboard</Link>
+                                <Link to='/admin/dashboard' className="nav-link" id='infosection'><i className='fas fa-home' id='infosection'></i>  Dashboard</Link>
                             </li>                               
                         </Fragment>
                     )}

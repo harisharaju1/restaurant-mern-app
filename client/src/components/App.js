@@ -9,8 +9,9 @@ import UserDashboard from './UserDashboard';
 import AdminDashboard from './AdminDashboard';
 import AdminRoute from './AdminRoute';
 import UserRoute from './UserRoute';
+import AdminEditItem from './AdminEditItem';
 
-const App = () => {
+const App = () => {  
   return (
     <BrowserRouter>
       <Header />
@@ -21,6 +22,7 @@ const App = () => {
           <Route exact path='/signin' component={Signin} />
           <UserRoute exact path='/user/dashboard' component={UserDashboard} />
           <AdminRoute exact path='/admin/dashboard' component={AdminDashboard} />
+          <AdminRoute exact path='/admin/edit/item/:itemId' component={AdminEditItem} />
           <Route component={Notfound} />
         </Switch>
       </main>

@@ -6,6 +6,7 @@ const cookieParser = require('cookie-parser');
 const connectDB = require('./database/db');
 const authRoutes = require('./routes/auth');
 const itemRoutes = require('./routes/item');
+const categoryRoutes = require('./routes/category');
 const path = require('path');
 
 //middleware
@@ -15,6 +16,8 @@ app.use(express.json());
 app.use(cookieParser());
 app.use('/api/auth', authRoutes);
 app.use('/api/item', itemRoutes);
+app.use('/api/category', categoryRoutes);
+app.use('/uploads', express.static('uploads'));;
 
 //serve statis assets if in production
 if(process.env.NODE_ENV == 'production'){

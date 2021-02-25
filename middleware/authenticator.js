@@ -3,6 +3,8 @@ const {jwtSecret} = require('../config/keys');
 
 exports.authenticateJWT = (req,res,next) => {
     const token = req.cookies.key;
+
+    console.log('inside auth.js');
     
     if(!token){
         return res.status(401).json({
