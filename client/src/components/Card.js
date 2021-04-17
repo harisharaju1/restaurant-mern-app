@@ -17,7 +17,7 @@ const Card = ({item}) => {
                     <hr />
                     < h6 className='mb-3'>
                         <span className='text-secondary mr-2'>
-                            {item.itemPrice.toLocaleString('en-US',{
+                            <i className="fas fa-rupee-sign text-secondary"></i> {item.itemPrice.toLocaleString('en-US',{
                                 style:'currency',
                                 currency:'USD',
                             })}

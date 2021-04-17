@@ -46,6 +46,42 @@ exports.readAll = async (req,res) => {
     }
 }
 
+exports.read = async (req,res) => {
+    try{
+        const itemId = req.params.itemId;
+        const item = await Item.findById(itemId);
+        res.status(200).json(item);
+    } catch(err){
+        console.log(err, 'item controller readAll error');
+        res.status(500).json({
+            errorMessage: 'Please try again later',
+        })
+    }
+}
+
+exports.update = async (req,res) => {
+    try{
+        const itemId = req.params.itemId;
+
+        req.body.itemFileName = req.file.filename;
+
+        const oldItem = await Item.findByIdAndUpdate(itemId, req.body);
+
+        fs.unlink(`uploads/${oldItem.itemFileName}`, err => {
+            if(err) throw err;
+        });
+        
+        res.json({
+            successMessage: 'Item successfully updated'
+        });
+
+    } catch(err){
+        res.status(500).json({
+            errorMessage: 'Please try again later',
+        })
+    }
+}
+
 exports.delete = async (req,res) => {
     try{
         const itemId = req.params.itemId;

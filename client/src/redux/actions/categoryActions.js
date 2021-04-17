@@ -29,7 +29,7 @@ export const createCategory = (formData) => async dispatch => {
         dispatch({type: SHOW_SUCCESS_MESSAGE, payload: response.data.successMessage});        
         dispatch({type: CREATE_CATEGORY, payload: response.data.category});
     } catch(err) {
-        console.log('createCategory API error: ', err);
+        //console.log('createCategory API error: ', err);
         dispatch({type: STOP_LOADING});
         dispatch({type: SHOW_ERROR_MESSAGE, payload: err.response.data.errorMessage});
     }    

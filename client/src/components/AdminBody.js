@@ -16,7 +16,7 @@ const AdminBody = () => {
         <div className='container'>
             <div className='row'>
                 <div className='card-deck'>
-                    {items.map(item => (
+                    {items && items.map(item => (
                         <Card key={item._id} item={item} />
                     ))}
                 </div>

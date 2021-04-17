@@ -1,8 +1,8 @@
 import React from 'react';
 
 const showHeader = () => (
-    <div className='bg-dark text-white py-4'>
-        <div className='container'>
+    <div className='text-white py-4' id='products'>
+        <div className='container' id='infosection'>
             <div className='row'>
                 <div className='col-md-6'>
                     <h1>

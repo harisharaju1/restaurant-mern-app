@@ -10,6 +10,7 @@ const messageReducer = (state=INITIAL_STATE, action) => {
         case SHOW_SUCCESS_MESSAGE:
             return {
                 ...state,
+                //never mutate the state directly, make a clone, and then make a change to that
                 successMsg: action.payload
             }
         case SHOW_ERROR_MESSAGE:

@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import './App.css'
 import { Link, useHistory } from 'react-router-dom';
+
+//import the subsets of the validator npm package as per requirement
 import isEmail from 'validator/lib/isEmail';
 import isEmpty from 'validator/lib/isEmpty';
 import equals from 'validator/lib/equals';
+
 import {showErrorMsg, showSuccessMsg} from '../helpers/message'
 import { showLoading } from '../helpers/loading';
 import {signup} from '../api/auth';
@@ -20,16 +23,22 @@ const Signup = () => {
             history.push('/user/dashboard');
         }
     },[history]);
-
+    /***************************
+     * 
+     * COMPONENT STATE
+     * 
+    ***************************/
     const[formData, setFormData] = useState({
-        username: 'Harish Raju',
-        email: 'harisharaju1@gmail.com',
-        password1: 'abc123',
-        password2: 'abc123',
+        username: '',
+        email: '',
+        password1: '',
+        password2: '',
         successMsg: '',
         errorMsg: '',
         loading: false
     });
+    //destructure form data members for easier accessibility instead of 
+    //having to reference them by formData.username, formData.password1, etc,.
     const {username, email, password1, password2, successMsg, errorMsg, loading} = formData;
     /***************************
      * 
@@ -63,7 +72,7 @@ const Signup = () => {
                 ...formData, errorMsg: `Passwords don't match`
             })
         } else {
-            //destructure the form data
+            //destructure the form data and pull out exactly what is needed
             const {username, email, password1} = formData;
             const data = {username, email, password1};
 
@@ -71,7 +80,7 @@ const Signup = () => {
 
             signup(data)
             .then(response => {
-                console.log('Axios signup success',response);
+                //console.log('Axios signup success',response);
                 setFormData({
                     username:'',
                     email:'',
@@ -82,13 +91,13 @@ const Signup = () => {
                 });
             })
             .catch (err => {
-                console.log('Axios signup error',err);
-                console.log(err.response.data.errorMessage);
+                //console.log('Axios signup error',err);
+                //console.log(err.response.data.errorMessage);
                 setFormData({...formData,loading:false,errorMsg:err.response.data.errorMessage});
             })
         }
 
-        console.log(formData);
+        //console.log(formData);
 
     };
     /***************************
@@ -126,7 +135,7 @@ const Signup = () => {
                         <i className='fa fa-lock'></i>
                     </span>
                 </div>
-                <input name='password1' className='form-control' placeholder='Create password' type='password' value={password1} onChange={handleChange}/>
+                <input name='password1' className='form-control' placeholder='Create Password' type='password' value={password1} onChange={handleChange}/>
             </div> 
 
             {/* password2 */}
@@ -136,7 +145,7 @@ const Signup = () => {
                         <i className='fa fa-lock'></i>
                     </span>
                 </div>
-                <input name='password2' className='form-control' placeholder='Confirm password' type='password' value={password2} onChange={handleChange}/>
+                <input name='password2' className='form-control' placeholder='Confirm Password' type='password' value={password2} onChange={handleChange}/>
             </div> 
 
             {/* signup button */}              
@@ -147,7 +156,7 @@ const Signup = () => {
             </div>
 
             {/* already have account */}
-            <p className='text-center text-white'>
+            <p className='text-center text-blue'>
                 Have an account? <Link to='/signin'>Log In</Link>
             </p>
                 

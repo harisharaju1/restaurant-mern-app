@@ -10,12 +10,12 @@ const showActionBtns = () => (
                     </button>
                 </div>
                 <div className='col-md-4 my-1'>
-                    <button className='btn btn-outline-info btn-lock' data-toggle='modal' data-target='#addItemModal'>
+                    <button className='btn btn-outline-warning btn-lock' data-toggle='modal' data-target='#addItemModal'>
                         <i className='fas fa-plus'> Add Item</i>
                     </button>
                 </div>                    
                 <div className='col-md-4 my-1'>
-                    <button className='btn btn-outline-info btn-lock'>
+                    <button className='btn btn-outline-success btn-lock'>
                         <i className='fas fa-eye'> View Orders</i>
                     </button>
                 </div>

@@ -102,7 +102,7 @@ const AdminItemModal = () => {
 
     return (
         <div id='addItemModal' className='modal' onClick={handleMessages}>
-            <div className='modal-dialog modal-dialog-centered modal-lg'>
+            <div className='modal-dialog modal-dialog-centered modal'>
                 <div className='modal-content'>
                     <form onSubmit={handleItemSubmit}>
                         {/* modal header */}

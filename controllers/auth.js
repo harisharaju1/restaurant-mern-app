@@ -29,7 +29,7 @@ exports.signupController = async (req,res) => {
         });
 
     } catch(err) {
-        console.log('signupController error: ', err);
+        //console.log('signupController error: ', err);
         res.status(500).json({
             errorMessage:'Server error'
         });
@@ -61,14 +61,16 @@ exports.signinController = async (req,res) => {
             }
         };
 
-        await jwt.sign(payload,jwtSecret,{expiresIn:jwtExpire},(err,token)=>{
+        await jwt.sign(payload, jwtSecret, {expiresIn:jwtExpire}, (err,token) => 
+        {
             if(err) console.log('jwt error:', err);
-            const {_id,username,email,role}=user;
+            const {_id, username, email, role} = user;
             res.json({
                 token,
-                user:{_id,username,email,role}                
+                user: {_id, username, email, role}                
             });
-        });       
+        }); 
+
     } catch(err) {
         console.log('signinController error: ', err);
         res.status(500).json({

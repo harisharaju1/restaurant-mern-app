@@ -1,10 +1,10 @@
 const jwt = require('jsonwebtoken');
 const {jwtSecret} = require('../config/keys');
 
-exports.authenticateJWT = (req,res,next) => {
+exports.authenticateJWT = (req, res, next) => {
     const token = req.cookies.key;
 
-    console.log('inside auth.js');
+    //console.log('inside auth.js');
     
     if(!token){
         return res.status(401).json({
@@ -13,13 +13,13 @@ exports.authenticateJWT = (req,res,next) => {
     }
 
     try{
-        const decoded = jwt.verify(token,jwtSecret);
+        const decoded = jwt.verify(token, jwtSecret);
 
         req.user = decoded.user;
 
         next();
     } catch(err) {
-        console.log('jwt wrror: ',err);
+        console.log('jwt error: ',err);
         res.status(401).json({
             errorMessage:'Invalid token'
         })

@@ -8,6 +8,10 @@ router.post('/', authenticateJWT, upload.single('itemImage'), itemController.cre
 
 router.get('/', itemController.readAll);
 
+router.get('/:itemId', itemController.read);
+
+router.put('/:itemId', authenticateJWT, upload.single('itemImage'), itemController.update);
+
 router.delete('/:itemId', authenticateJWT, itemController.delete);
 
 module.exports = router;

@@ -1,18 +1,15 @@
-import React, {useState, Fragment} from 'react';
-import {showErrorMsg,showSuccessMsg} from '../helpers/message';
-import {showLoading} from '../helpers/loading';
-import isEmpty from 'validator/lib/isEmpty';
+import React, {useState, useEffect, Fragment} from 'react';
 import AdminHeader from './AdminHeader';
-//redux
+import {Link} from 'react-router-dom';
 import {useSelector, useDispatch} from 'react-redux';
-import {clearMessages} from '../redux/actions/messageActions';
-import {createItem} from '../redux/actions/itemActions'
-import { Link } from 'react-router-dom';
+import {getItem} from '../redux/actions/itemActions'
+import {getCategories} from '../redux/actions/categoryActions'
+import axios from 'axios';
 
-const AdminEditItem = ({match}) => {
+const AdminEditItem = ({match, history}) => {
     /*****************************
      * 
-     * REDUX GLOBAL STATE PROPS
+     * PARAMS
      * 
     *****************************/ 
 
@@ -22,198 +19,268 @@ const AdminEditItem = ({match}) => {
      * 
      * REDUX GLOBAL STATE PROPS
      * 
-    *****************************/  
-
-    const {loading} = useSelector(state => state.loading);
-    const {successMsg, errorMsg} = useSelector(state => state.messages);
-    const {categories} = useSelector(state => state.categories);
+    *****************************/ 
 
     const dispatch = useDispatch();
+
+    const {item} = useSelector(state => state.items);
+
+    //console.log(item);
+
+    const {categories} = useSelector(state => state.categories);
 
     /*****************************
      * 
      * COMPONENT STATE PROPS
      * 
-    *****************************/    
-    const [clientSideErrorMsg, setClientSideErrorMsg] = useState('');
-    const [itemData, setItemData] = useState({
-        itemName: '',
-        itemDesc :'',
-        itemPrice: '',
-        itemQuantity: '',
-        itemCategory: '',
-        itemWeight: '',
-        itemImage: null,
-        itemFileName: ''
-    });
-    const {itemName,itemDesc,itemPrice,itemQuantity,itemCategory,itemWeight,itemImage} = itemData;    
+    *****************************/ 
 
-    /***************************
+    const [itemName, setItemName] = useState('');
+    const [itemDesc, setItemDesc] = useState('');
+    const [itemPrice, setItemPrice] = useState('');
+    const [itemQuantity, setItemQuantity] = useState('');
+    const [itemCategory, setItemCategory] = useState('');
+    const [itemWeight, setItemWeight] = useState('');
+    const [itemImage, setItemImage] = useState(null);
+    const [itemFileName, setItemFileName] = useState('');
+
+    /*****************************
      * 
-     * EVENTHANDLERS
-     *
-     **************************/ 
+     * LIFECYCLE METHODS
+     * 
+    *****************************/ 
 
-    const handleMessages = () => {
-        dispatch(clearMessages());
-        setClientSideErrorMsg('');
-    };
+    useEffect(() => {
+        if(!item){
+           dispatch(getItem(itemId)); 
+           dispatch(getCategories()); 
+        } else {
+            setItemName(item.itemName);
+            setItemDesc(item.itemDesc);
+            setItemPrice(item.itemPrice);
+            setItemQuantity(item.itemQuantity);
+            setItemCategory(item.itemCategory);
+            setItemWeight(item.itemWeight);
+            setItemImage(item.itemImage);
+            setItemFileName(item.itemFileName);
+        }
+    }, [dispatch, itemId, item]);
 
-    const handleItemChange = evt => {
-        setItemData({
-            ...itemData,
-            [evt.target.name]: evt.target.value,
-        });
+    /*****************************
+     * 
+     * COMPONENT STATE PROPS
+     * 
+    *****************************/ 
+
+    const handleImageUpload = e => {
+        const image = e.target.files[0];
+
+        setItemImage(image);
     }
 
-    const handleItemImage = evt => {
-        setItemData({
-            ...itemData,
-            [evt.target.name]: evt.target.files[0],
-        })
-    }    
+    const handleItemSubmit = async e => {
+        e.preventDefault();
 
-    const handleItemSubmit = evt => {
-        evt.preventDefault(); 
-        
-        if (itemImage === null){
-            setClientSideErrorMsg('Please select an image');
-        } else if (isEmpty(itemName) || isEmpty(itemPrice) || isEmpty(itemQuantity) || isEmpty(itemCategory) || isEmpty(itemWeight)) {
-            setClientSideErrorMsg('All fields are required');
-        } else {
-            let formData = new FormData();
+        const formData = new FormData();
+        formData.append('itemName',itemName);
+        formData.append('itemDesc',itemDesc);
+        formData.append('itemPrice',itemPrice);
+        formData.append('itemQuantity',itemQuantity);
+        formData.append('itemCategory',itemCategory);
+        formData.append('itemImage',itemImage);
+        formData.append('itemFileName',itemFileName);
+        formData.append('itemWeight',itemWeight);
 
-            formData.append('itemName', itemName);
-            formData.append('itemDesc', itemDesc);
-            formData.append('itemPrice', itemPrice);
-            formData.append('itemQuantity', itemQuantity);
-            formData.append('itemCategory', itemCategory);
-            formData.append('itemWeight', itemWeight);
-            formData.append('itemImage', itemImage);            
-
-            dispatch(createItem(formData));
-            setItemData({
-                itemName: '',
-                itemDesc :'',
-                itemPrice: '',
-                itemQuantity: '',
-                itemCategory: '',
-                itemWeight: '',
-                itemImage: null,
-            });
+        const config = {
+            headers: {
+                'Content-Type': 'mulitpart/form-data'
+            }
         }
+
+        await axios.put(`/api/item/${itemId}`, formData, config)
+            .then(res => {
+                history.push('/admin/dashboard/');
+            })
+            .catch(err => {
+                console.log(err);
+            });
     }
 
     /*****************************
      * 
-     * VIEW RENDERER
+     * VIEW RENDERERS
      * 
-    *****************************/      
+    *****************************/ 
 
     return (
         <Fragment>
-            <AdminHeader/>
-            <div className='container my-3'>
-                <div className='row'>
-                    <div className='col-md-8 mx-auto'>
-                        <Link to='/admin/dashboard' >
-                            <span className='fas fa-arrow-left'> Get Back</span>
-                        </Link>
-                        <div className='pt-2'>
-                            <div className='modal-content'>
-                                <form onSubmit={handleItemSubmit}>
-                                    {/* modal header */}
-                                    <div className='modal-header bg-warning text-white'>
-                                        <h5 className='modal-title'>Add Item</h5>
-                                    </div>
-                                    {/* modal header end */}
-                                    {/* modal body */}
-                                    <div className='modal-body my-2 container'>
-                                        {clientSideErrorMsg && showErrorMsg(clientSideErrorMsg)}   
-                                        {errorMsg && showErrorMsg(errorMsg)}
-                                        {successMsg && showSuccessMsg(successMsg)}                     
-                                        {
-                                            loading ? (
-                                                <div className='text-center'>{showLoading()}</div>
-                                            ) : (
-                                                <Fragment>
-                                                    {/* itemName */}
-                                                    <div className="form-group input-group">
-                                                        <input type='text' className='form-control' name='itemName' placeholder='Item Name' value={itemName} onChange={handleItemChange}></input>
-                                                    </div>
-                                                    {/* itemName */}
-                                                    {/* itemDesc */}
-                                                    <div className="form-group input-group">
-                                                        <textarea className='form-control' rows='3' placeholder='Item Description' name='itemDesc' value={itemDesc} onChange={handleItemChange}></textarea>
-                                                    </div>
-                                                    {/* itemDesc */}
-                                                    <div className='form-row'>
-                                                        {/* itemPrice */}
-                                                        <div className="form-group input-group col-md-6">                                      
-                                                            <div className="input-group-prepend">
-                                                                <span className="input-group-text"><i className='fas fa-rupee-sign'></i></span>
-                                                            </div>
-                                                            <input type="number" className="form-control" name='itemPrice' placeholder="Amount (to the nearest rupee)" value={itemPrice} onChange={handleItemChange} min='0'/>
-                                                            <div className="input-group-append">
-                                                                <span className="input-group-text">.00</span>
-                                                            </div>
-                                                        </div>
-                                                        {/* itemPrice */} 
-                                                        {/* itemQuantity */}
-                                                        <div className="form-group input-group col-md-6">
-                                                            <input type="number" className="form-control" name='itemQuantity' placeholder="Number of items available" min='1' value={itemQuantity} onChange={handleItemChange}/>
-                                                        </div>
-                                                        {/* itemQuantity */}  
-                                                    </div>                                     
-                                                    <div className='form-row'>
-                                                        {/* itemCategory */}
-                                                        <div className='form-group col-md-6'>
-                                                            <select className='custom-select mr-sm-2' name='itemCategory' onChange={handleItemChange}>
-                                                                <option value=''>Choose Category...</option>
-                                                                {categories && categories.map((c) => (
-                                                                    <option key={c._id} value={c._id}>
-                                                                        {c.category}
-                                                                    </option>
-                                                            ))}
-                                                            </select>                                                
-                                                        </div>
-                                                    {/* itemCategory */}
-                                                    {/* itemWeight */}
-                                                        <div className='form-group input-group col-md-6'>
-                                                            <input type="number" className="form-control" name='itemWeight' value={itemWeight} placeholder="Enter Item Weight" onChange={handleItemChange}/>
-                                                        </div>
-                                                    {/* itemWeight */}
-                                                    {/* itemPurity */}
-                                                        {/* <div className='form-group input-group col-md-4'>
-                                                            <input type="text" className="form-control" name='itemPurity' value={itemPurity} placeholder="Item Purity defaulted to 18k if left empty" onChange={handleChange}/>
-                                                        </div> */}
-                                                    {/* itemPurity */}  
-                                                    </div>                             
-                                                    {/* itemImageFile */}
-                                                    <div className='custom-file'>
-                                                        <input type="file" className="custom-file-input" name='itemImage' onChange={handleItemImage}/>
-                                                        <label className='custom-file-label'>Choose File</label>
-                                                    </div>
-                                                    {/* itemImageFile */}
-                                                </Fragment>
-                                            )
-                                        }                                                    
-                                    </div>
-                                    {/* modal body*/}
-                        {/* modal footer */}
-                        <div className='modal-footer'>
-                            <button type='submit' className='btn btn-warning text-white'>
-                                Submit
-                            </button>
-                        </div>
-                        {/* modal footer */}
-                    </form>
-                </div>
-            </div>
-                    </div>
-                </div>
-            </div>
-        </Fragment>
+			<AdminHeader />
+			<div className='container my-3'>
+				<div className='row'>
+					<div className='col-md-8 mx-auto'>
+						<Link to='/admin/dashboard'>
+							<span className='fas fa-arrow-left'>Go Back</span>
+						</Link>
+						<div>
+							<br />
+							<div className='modal-content'>
+								<form onSubmit={handleItemSubmit}>
+									<div className='modal-header bg-warning text-white'>
+										<h5 className='modal-title'>
+											Update Item
+										</h5>
+									</div>
+									<div className='modal-body my-2'>
+										<Fragment>
+											<label className='btn btn-dark mr-4'>
+												Choose file
+												<input
+													type='file'
+													name='itemImage'
+													accept='images/*'
+													hidden
+													onChange={handleImageUpload}
+												/>
+											</label>
+											{itemImage &&
+											itemFileName ? (
+												<span className='badge badge-secondary'>
+													{itemFileName}
+												</span>
+											) : itemImage ? (
+												<img
+													className='img-thumbnail'
+													style={{
+														width: '120px',
+														height: '80px',
+													}}
+													src={`../../../uploads/${itemFileName}`}
+													alt='item'
+												/>
+											) : null}
+
+											<div className='form-group'>
+												<label className='text-secondary'>
+													Name
+												</label>
+												<input
+													type='text'
+													className='form-control'
+													name='itemName'
+													value={itemName}
+													onChange={e =>
+														setItemName(
+															e.target.value
+														)
+													}
+												/>
+											</div>
+											<div className='form-group'>
+												<label className='text-secondary'>
+													Description
+												</label>
+												<textarea
+													className='form-control'
+													rows='3'
+													name='itemDesc'
+													value={itemDesc}
+													onChange={e =>
+														setItemDesc(
+															e.target.value
+														)
+													}
+												></textarea>
+											</div>
+											<div className='form-group'>
+												<label className='text-secondary'>
+													Price
+												</label>
+												<input
+													type='text'
+													className='form-control'
+													name='itemPrice'
+													value={itemPrice}
+													onChange={e =>
+														setItemPrice(
+															e.target.value
+														)
+													}
+												/>
+											</div>
+											<div className='form-row'>
+												<div className='form-group col-md-6'>
+													<label className='text-secondary'>
+														Category
+													</label>
+													<select
+														className='custom-select mr-sm-2'
+														name='itemCategory'
+														value={itemCategory}
+														onChange={e =>
+															setItemCategory(
+																e.target.value
+															)
+														}
+													>
+														<option value=''>
+															Choose one...
+														</option>
+														{categories &&
+															categories.map(
+																c => (
+																	<option
+																		key={
+																			c._id
+																		}
+																		value={
+																			c._id
+																		}
+																	>
+																		{
+																			c.category
+																		}
+																	</option>
+																)
+															)}
+													</select>
+												</div>
+
+												<div className='form-group col-md-6'>
+													<label className='text-secondary'>
+														Quantity
+													</label>
+													<input
+														type='number'
+														className='form-control'
+														min='0'
+														max='1000'
+														name='itemQuantity'
+														value={itemQuantity}
+														onChange={e =>
+															setItemQuantity(
+																e.target.value
+															)
+														}
+													/>
+												</div>
+											</div>
+										</Fragment>
+									</div>
+									<div className='modal-footer'>
+										<button
+											type='submit'
+											className='btn btn-warning text-white'
+										>
+											Submit
+										</button>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</Fragment>
     );
 }
 

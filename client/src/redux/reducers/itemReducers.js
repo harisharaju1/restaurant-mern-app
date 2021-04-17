@@ -1,4 +1,4 @@
-import {CREATE_ITEM, GET_ITEMS, DELETE_ITEM} from '../constants/itemConstants';
+import {CREATE_ITEM, GET_ITEMS, DELETE_ITEM, GET_ITEM} from '../constants/itemConstants';
 
 const INITIAL_STATE = {
     items: []
@@ -17,6 +17,10 @@ const itemReducer = (state=INITIAL_STATE, action) => {
         case DELETE_ITEM:
             return {
                 items: state.items.filter(i => i._id !== action.payload._id)
+            }
+        case GET_ITEM:
+            return {
+                item : action.payload,
             }
         default:
             return state;

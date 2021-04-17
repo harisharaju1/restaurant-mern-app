@@ -1,5 +1,8 @@
 import React, {Fragment} from 'react';
 import { Link, withRouter } from 'react-router-dom';
+//withRouter has access to the history object
+//we're using this so that the Header changes as 
+//and when the user signs in or signs out 
 import {isAuthenticated, logout} from '../helpers/auth';
 
 const Header = ({history}) => {
@@ -15,7 +18,7 @@ const Header = ({history}) => {
         return (
         <nav className="navbar navbar-expand-lg" id='products'>
             <Link to='/' className='navbar-brand' id='infosection'>
-                DiamondLane
+                <i className="fas fa-gem" aria-hidden="true" id='infosection'></i> DiamondLane
             </Link>
             <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span className="navbar-toggler-icon"></span>

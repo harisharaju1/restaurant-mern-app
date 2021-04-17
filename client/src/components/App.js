@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Header from './Header';
 import Home from './Home';
@@ -11,7 +11,7 @@ import AdminRoute from './AdminRoute';
 import UserRoute from './UserRoute';
 import AdminEditItem from './AdminEditItem';
 
-const App = () => {  
+const App = () => {
   return (
     <BrowserRouter>
       <Header />

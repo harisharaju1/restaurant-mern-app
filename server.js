@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+//back-end framweork that works alongside node
 const cors = require('cors');
 //const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
@@ -11,6 +12,7 @@ const path = require('path');
 
 //middleware
 app.use(cors());
+//HTTP request logger
 //app.use(morgan('dev'));
 app.use(express.json());
 app.use(cookieParser());

@@ -34,10 +34,12 @@ const AdminCategoryModal = () => {
      **************************/ 
 
     const handleMessages = () => {
+        setClientErrorMsg('');
         dispatch(clearMessages());
     };
 
     const handleCategoryChange = evt => {
+        setClientErrorMsg('Category Name cannot be empty');
         dispatch(clearMessages());
         setCategory(evt.target.value);
     }
@@ -61,7 +63,7 @@ const AdminCategoryModal = () => {
 
     return(    
         <div id='addCategoryModal' className='modal' onClick={handleMessages}>
-            <div className='modal-dialog modal-dialog-centered modal-lg'>
+            <div className='modal-dialog modal-dialog-centered modal'>
                 <div className='modal-content'>
                     <form onSubmit={handleCategorySubmit}>
                         {/* modal header */}
@@ -86,7 +88,7 @@ const AdminCategoryModal = () => {
                                         <div className="form-group input-group">
                                             <input type='text' className='form-control' name='category' value={category} placeholder='Category Name' onChange={handleCategoryChange}></input>
                                         </div>
-                                        {/* category */}                                        
+                                        {/*category */}                               
                                     </Fragment>
                                 )
                             }                                                    

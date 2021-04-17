@@ -9,6 +9,7 @@ import {signin} from '../api/auth';
 import {setAutentication, isAuthenticated} from '../helpers/auth'
 
 const Signin = () => {
+
     let history = useHistory();
 
     useEffect(() => {
@@ -24,8 +25,8 @@ const Signin = () => {
      * 
     ***************************/
     const[formData, setFormData] = useState({
-        email: 'harisharaju1@gmail.com',
-        password1: 'abc123',        
+        email: '',
+        password1: '',        
         errorMsg: '',
         loading: false,
     });
@@ -67,15 +68,15 @@ const Signin = () => {
             signin(data)
             .then(response => {
 
-                console.log('Axios signin success',response);
+                //console.log('Axios signin success',response);
 
-                setAutentication(response.data.token,response.data.user);
+                setAutentication(response.data.token, response.data.user);
 
                 if(isAuthenticated() && isAuthenticated().role===1){
-                    console.log('Redirecting to admin dashboard');
+                    //console.log('Redirecting to admin dashboard');
                     history.push('/admin/dashboard');
                 } else {
-                    console.log('Redirecting to user dashboard');
+                    //console.log('Redirecting to user dashboard');
                     history.push('/user/dashboard');
                 }
 
@@ -85,13 +86,13 @@ const Signin = () => {
                 });
             })
             .catch (err => {
-                console.log('Axios signin error',err);
-                console.log(err.response.data.errorMessage);
+                //console.log('Axios signin error',err);
+                //console.log(err.response.data.errorMessage);
                 setFormData({...formData,loading:false,errorMsg:err.response.data.errorMessage});
             })
         }
 
-        console.log(formData);
+        //console.log(formData);
 
     };
 
@@ -120,7 +121,7 @@ const Signin = () => {
                         <i className='fa fa-lock'></i>
                     </span>
                 </div>
-                <input name='password1' className='form-control' placeholder='Create password' type='password' value={password1} onChange={handleChange}/>
+                <input name='password1' className='form-control' placeholder='Enter Password' type='password' value={password1} onChange={handleChange}/>
             </div> 
 
             {/* signin button */}              
