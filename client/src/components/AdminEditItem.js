@@ -25,8 +25,6 @@ const AdminEditItem = ({match, history}) => {
 
     const {item} = useSelector(state => state.items);
 
-    //console.log(item);
-
     const {categories} = useSelector(state => state.categories);
 
     /*****************************
@@ -68,7 +66,7 @@ const AdminEditItem = ({match, history}) => {
 
     /*****************************
      * 
-     * COMPONENT STATE PROPS
+     * EVENT HANDLERS
      * 
     *****************************/ 
 
@@ -119,7 +117,7 @@ const AdminEditItem = ({match, history}) => {
 				<div className='row'>
 					<div className='col-md-8 mx-auto'>
 						<Link to='/admin/dashboard'>
-							<span className='fas fa-arrow-left'>Go Back</span>
+							<span className='fas fa-arrow-left'> Go Back</span>
 						</Link>
 						<div>
 							<br />

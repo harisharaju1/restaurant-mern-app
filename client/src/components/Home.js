@@ -1,14 +1,30 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
+import {Link, withRouter} from 'react-router-dom';
 import female from './images/female.jpg';
 import rings from './images/rings.jpg';
-import ring from './images/ring.jpg';
 import pendants from './images/pendants.jpg'
-import studs from './images/studs.jpg'
 import coupleRings from './images/couple-rings.jpg';
-import bangles from './images/bangles_new.jpg'
-import watch from './images/watch.jpg'
+//redux
+import {useSelector} from 'react-redux';
+import {useDispatch} from 'react-redux';
+import {getItems} from '../redux/actions/itemActions';
 
 const Home = () => {
+    /*****************************
+     * 
+     * REDUX GLOBAL STATE PROPS
+     * 
+    *****************************/ 
+   
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(getItems());
+    },[dispatch]);
+
+    const {items} = useSelector(state => state.items);
+
+    console.log(items);
+
     return(
         <Fragment>
         <section style={{backgroundColor:'black'}}>            
@@ -60,6 +76,49 @@ const Home = () => {
                 </div>
             </div>
         </section>
+        <section id='products' className='products py-5'>
+            <div className='container'>
+                {/* section tile */}
+                <div className='row'>
+                    <div className='col-10 mx-auto col-sm-6 text-center'>
+                        <h1 className='text-capitalize product-title'>
+                            Featured Products
+                        </h1>
+                    </div>
+                </div>
+                {/* end of section title */}
+                {/* products */}
+                <div className='row product-items' id='product-items'>
+                    {items && items.map(item => (
+                        <div key={item._id} className='col-10 col-sm-6 col-lg-4 mx-auto my-3'>
+                        <div className='card single-item'>
+                            <div className='img-container'>
+                                <img src={`../../../uploads/${item.itemFileName}`} alt='' className='card-img-top product-img'/>
+                            </div>
+                            <div className='card-body'>
+                                <div className='card-text d-flex justify-content-between text-capitalize'>
+                                    <h5 id='item-name'>{item.itemName}</h5>
+                                    <span><i className='fas fa-rupee-sign'> {item.itemPrice.toLocaleString('en-US',{
+                                style:'currency',
+                                currency:'USD',
+                            })}</i></span>
+                                </div>
+                                <div>
+                                    {/* <a href="#" className="btn btn-primary m-1">View Details</a> */}
+                                    <Link to={`/item/${item._id}`} type='button' className='btn btn-primary btn-sm mr-1 my-1'>
+                                    <i className='fas fa-eye'> View Details</i>
+                                    </Link>
+                                    <a href="#" className="btn btn-primary btn-sm mr-1 my-1">Add to Cart</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    ))}
+                </div>
+                {/* end of products */}
+            </div>
+        </section>
+        
         <section className='services py-5 text-center bg-dark'>
             <div className='container'>
                 <div className='row' id='infosection'>
@@ -109,120 +168,7 @@ const Home = () => {
                     {/* end of single service */}
                 </div>
             </div>
-        </section>
-        <section id='products' className='products py-5'>
-            <div className='container'>
-                {/* section tile */}
-                <div className='row'>
-                    <div className='col-10 mx-auto col-sm-6 text-center'>
-                        <h1 className='text-capitalize product-title'>
-                            Featured Products
-                        </h1>
-                    </div>
-                </div>
-                {/* end of section title */}
-                {/* products */}
-                <div className='row product-items' id='product-items'>
-                    {/* single item */}
-                    <div className='col-10 col-sm-6 col-lg-4 mx-auto my-3'>
-                        <div className='card single-item'>
-                            <div className='img-container'>
-                                <img src={studs} alt='' className='card-img-top product-img'/>
-                            </div>
-                            <div className='card-body'>
-                                <div className='card-text d-flex justify-content-between text-capitalize'>
-                                    <h5 id='item-name'>Diamond Studs</h5>
-                                    <span><i className='fas fa-rupee-sign'> 350</i></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    {/* end of single item */}
-
-                    {/* single item */}
-                    <div className='col-10 col-sm-6 col-lg-4 mx-auto my-3'>
-                        <div className='card single-item'>
-                            <div className='img-container'>
-                                <img src={bangles} alt='' className='card-img-top product-img'/>
-                            </div>
-                            <div className='card-body'>
-                                <div className='card-text d-flex justify-content-between text-capitalize'>
-                                    <h5 id='item-name'>Diamond Bands</h5>
-                                    <span><i className='fas fa-rupee-sign'> 500</i></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    {/* end of single item */}
-
-                    {/* single item */}
-                    <div className='col-10 col-sm-6 col-lg-4 mx-auto my-3'>
-                        <div className='card single-item'>
-                            <div className='img-container'>
-                                <img src={ring} alt='' className='card-img-top product-img'/>
-                            </div>
-                            <div className='card-body'>
-                                <div className='card-text d-flex justify-content-between text-capitalize'>
-                                    <h5 id='item-name'>Diamond Rings</h5>
-                                    <span><i className='fas fa-rupee-sign'> 850</i></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    {/* end of single item */}
-
-                    {/* single item */}
-                    <div className='col-10 col-sm-6 col-lg-4 mx-auto my-3'>
-                        <div className='card single-item'>
-                            <div className='img-container'>
-                                <img src={watch} alt='' className='card-img-top product-img'/>
-                            </div>
-                            <div className='card-body'>
-                                <div className='card-text d-flex justify-content-between text-capitalize'>
-                                    <h5 id='item-name'>Custom Watch</h5>
-                                    <span><i className='fas fa-rupee-sign'> 350</i></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    {/* end of single item */}
-
-                    {/* single item */}
-                    <div className='col-10 col-sm-6 col-lg-4 mx-auto my-3'>
-                        <div className='card single-item'>
-                            <div className='img-container'>
-                                <img src={studs} alt='' className='card-img-top product-img'/>
-                            </div>
-                            <div className='card-body'>
-                                <div className='card-text d-flex justify-content-between text-capitalize'>
-                                    <h5 id='item-name'>Diamond Studs</h5>
-                                    <span><i className='fas fa-rupee-sign'> 350</i></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    {/* end of single item */}
-
-                    {/* single item */}
-                    <div className='col-10 col-sm-6 col-lg-4 mx-auto my-3'>
-                        <div className='card single-item'>
-                            <div className='img-container'>
-                                <img src={coupleRings} alt='' className='card-img-top product-img'/>
-                            </div>
-                            <div className='card-body'>
-                                <div className='card-text d-flex justify-content-between text-capitalize'>
-                                    <h5 id='item-name'>Diamond Rings</h5>
-                                    <span><i className='fas fa-rupee-sign'> 350</i></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    {/* end of single item */}
-                </div>
-                {/* end of products */}
-            </div>
-        </section>
-
+        </section> 
         <footer className="mainfooter" role="contentinfo">
             <div className="footer-middle">
             <div className="container">
@@ -282,4 +228,4 @@ const Home = () => {
     );
 };
 
-export default Home;
+export default withRouter(Home);
