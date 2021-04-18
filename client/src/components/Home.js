@@ -27,7 +27,7 @@ const Home = () => {
 
     return(
         <Fragment>
-        <section style={{backgroundColor:'black'}}>            
+        <section className='bg-dark' id='infosection'>            
             <div className="container">
                 <div className="carousel slide" id="main-carousel" data-ride="carousel">
 
@@ -38,7 +38,7 @@ const Home = () => {
                         <li data-target="#main-carousel" data-slide-to="3"></li>
                     </ol>
                     
-                    <div className="carousel-inner">
+                    <div className="carousel-inner" id='infosection'>
                         <div className="carousel-item active">
                             <img className="d-block img-fluid" src={female} alt=""/>
                             <div className="carousel-caption d-none d-md-block">
@@ -76,12 +76,12 @@ const Home = () => {
                 </div>
             </div>
         </section>
-        <section id='products' className='products py-5'>
+        <section className='products py-5 bg-dark'>
             <div className='container'>
                 {/* section tile */}
                 <div className='row'>
                     <div className='col-10 mx-auto col-sm-6 text-center'>
-                        <h1 className='text-capitalize product-title'>
+                        <h1 className='text-capitalize product-title' id='infosection'>
                             Featured Products
                         </h1>
                     </div>
@@ -93,7 +93,9 @@ const Home = () => {
                         <div key={item._id} className='col-10 col-sm-6 col-lg-4 mx-auto my-3'>
                         <div className='card single-item'>
                             <div className='img-container'>
-                                <img src={`../../../uploads/${item.itemFileName}`} alt='' className='card-img-top product-img'/>
+                                <Link to={`/item/${item._id}`}>
+                                    <img src={`../../../uploads/${item.itemFileName}`} alt='' className='card-img-top product-img'/>
+                                </Link>
                             </div>
                             <div className='card-body'>
                                 <div className='card-text d-flex justify-content-between text-capitalize'>
@@ -169,13 +171,13 @@ const Home = () => {
                 </div>
             </div>
         </section> 
-        <footer className="mainfooter" role="contentinfo">
-            <div className="footer-middle">
+        <footer className="mainfooter bg-dark" role="contentinfo">
+            <div className="footer-middle bg-dark">
             <div className="container">
-                <div className="row">
+                <div className="row" id='infosection'>
                 <div className="col-md-3 col-sm-6">
                     {/* <!--Column1--> */}
-                    <div className="footer-pad">
+                    <div className="footer-pad" id='infosection'>
                     <h5>Know Your Jewellery</h5>
                     <ul className="list-unstyled">                        
                         <li><a href='/'>DIAMOND GUIDE</a></li>
@@ -215,7 +217,7 @@ const Home = () => {
                 </div>
                 <div className="row">
                     <div className="col-md-12 copy">
-                        <p className="text-center">&copy; Copyright 2020 - Diamond Lane.  All rights reserved.</p>
+                        <p className="text-center">&copy; Copyright 2021 - Diamond Lane.  All rights reserved.</p>
                     </div>
                 </div>
 

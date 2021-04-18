@@ -16,7 +16,7 @@ const Header = ({history}) => {
     //views
     const showNavigation = () => {        
         return (
-        <nav className="navbar navbar-expand-lg" id='products'>
+        <nav className="navbar navbar-expand-lg bg-dark">
             <Link to='/' className='navbar-brand' id='infosection'>
                 <i className="fas fa-gem" aria-hidden="true" id='infosection'></i> DiamondLane
             </Link>

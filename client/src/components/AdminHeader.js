@@ -1,7 +1,7 @@
 import React from 'react';
 
 const showHeader = () => (
-    <div className='text-white py-4' id='products'>
+    <div className='text-white py-4 bg-dark'>
         <div className='container' id='infosection'>
             <div className='row'>
                 <div className='col-md-6'>

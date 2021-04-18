@@ -23,6 +23,8 @@ const ItemDetails = ({match}) => {
 
     const {item} = useSelector(state => state.items);
 
+    //console.log(item);
+
     //const {categories} = useSelector(state => state.categories);
 
     /*****************************
@@ -63,28 +65,63 @@ const ItemDetails = ({match}) => {
     }, [dispatch, itemId, item]);
 
     return (
-        <div>
-            <Fragment>
-                <div className='container my-3'>
-                    <div className='row'>
-                        <div className='col-md-8'>
-                            <Link to='/'>
-							<span className='fas fa-arrow-left'>  Go Back</span>
-						    </Link>
-                                <br />
-                                <br />
-                            <div className='col-md-8'>
-                                <img className='img-fluid' src={`../../../uploads/${itemFileName}`} alt='item' />
-                            </div>
+        <Fragment>
+            <div>
+                <section className="mb-5 m-5" id=''>
+
+                <div className="row">
+                    <div className="col-md-6 mb-4 mb-md-0">
+
+                    <div id="mdb-lightbox-ui"></div>
+
+                    <div className="mdb-lightbox">
+                        <div className="row product-gallery mx-1">
+                        <div className="col-12 mb-0">
+                            <figure className="view overlay rounded z-depth-1 main-img">
+                                <img src={`../../../uploads/${itemFileName}`}
+                                className="img-fluid z-depth-1"/>
+                            </figure>
                         </div>
+                        </div>
+
                     </div>
-                    <div className='col-md-4 row'>
-                                <p>{itemName}</p>
+
+                    </div>
+                    <div className="col-md-6">
+
+                    <h5>{itemName}</h5>
+                    <p className="mb-2 text-muted text-uppercase small">{itemCategory}</p>
+                    {/* <p><span className="mr-1"><strong><i className='fas fa-rupee-sign'> {itemPrice}</i></strong></span></p> */}
+                    <p className="pt-1">{itemDesc}</p>
+                    <div className="table-responsive">
+                        <table className="table table-sm table-borderless mb-0">
+                        <tbody>
+                            <tr>
+                            <th className="pl-0 w-25" scope="row"><strong>Weight</strong></th>
+                            <td>{itemWeight}</td>
+                            </tr>
+                            <tr>
+                            <th className="pl-0 w-25" scope="row"><strong>Price</strong></th>
+                            <td>{itemPrice}</td>
+                            </tr>
+                            <tr>
+                            <th className="pl-0 w-25" scope="row"><strong>Delivery</strong></th>
+                            <td>Bengaluru, India</td>
+                            </tr>
+                        </tbody>
+                        </table>
+                    </div>
+                    <hr/>
+                    <button type="button" className="btn btn-primary btn-md mr-1 mb-2">Buy now</button>
+                    <button type="button" className="btn btn-light btn-md mr-1 mb-2"><i
+                        className="fas fa-shopping-cart pr-2"></i>Add to cart</button>
                     </div>
                 </div>
-            </Fragment>
-        </div>
-    );
+
+                </section>
+            </div>
+        </Fragment>
+    );//your line
 };
 
 export default ItemDetails;
