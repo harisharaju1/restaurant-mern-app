@@ -1,7 +1,8 @@
-import {CLEAR_MESSAGES} from '../constants/messageConstants';
+import { CLEAR_MESSAGES } from "../constants/messageConstants";
 
-export const clearMessages = () => dispatch => {
-    dispatch({
-        type: CLEAR_MESSAGES
-    });
+export const clearMessages = () => (dispatch) => {
+  dispatch({
+    type: CLEAR_MESSAGES,
+  });
 };
+//function returning another function

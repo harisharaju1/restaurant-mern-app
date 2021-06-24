@@ -1,32 +1,35 @@
-import {SHOW_ERROR_MESSAGE, SHOW_SUCCESS_MESSAGE, CLEAR_MESSAGES} from '../constants/messageConstants';
+import {
+  SHOW_ERROR_MESSAGE,
+  SHOW_SUCCESS_MESSAGE,
+  CLEAR_MESSAGES,
+} from "../constants/messageConstants";
 
 const INITIAL_STATE = {
-    successMsg: '',
-    errorMsg: ''
-}
+  successMsg: "",
+  errorMsg: "",
+};
 
-const messageReducer = (state=INITIAL_STATE, action) => {
-    switch (action.type) {
-        case SHOW_SUCCESS_MESSAGE:
-            return {
-                ...state,
-                //never mutate the state directly, make a clone, and then make a change to that
-                successMsg: action.payload
-            }
-        case SHOW_ERROR_MESSAGE:
-            return {
-                ...state,
-                errorMsg: action.payload
-            }
-        case CLEAR_MESSAGES:
-            return {
-                successMsg: '',
-                errorMsg: ''
-            }
-        default:
-            return state
-            
-    }
+const messageReducer = (state = INITIAL_STATE, action) => {
+  switch (action.type) {
+    case SHOW_SUCCESS_MESSAGE:
+      return {
+        ...state,
+        //never mutate the state directly, make a clone, and then make a change to that
+        successMsg: action.payload,
+      };
+    case SHOW_ERROR_MESSAGE:
+      return {
+        ...state,
+        errorMsg: action.payload,
+      };
+    case CLEAR_MESSAGES:
+      return {
+        successMsg: "",
+        errorMsg: "",
+      };
+    default:
+      return state;
+  }
 };
 
 export default messageReducer;
